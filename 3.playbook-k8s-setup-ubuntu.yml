@@ -42,7 +42,7 @@
       shell: mkdir -p $HOME/.kube 
       become_user: {{ user }}
       
-    - name: Copy Kubernetes config file 
+    - name: Copy Kubernetes config file for user
       copy: 
         src: /etc/kubernetes/admin.conf 
         dest: $HOME/.kube/config
@@ -51,7 +51,7 @@
       become: true
       become_user: root
     
-    - name: Chown Kubernetes config file
+    - name: Chown Kubernetes config file for user
       shell: sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
     - name: Download Flannel v0.18.1 manifest file

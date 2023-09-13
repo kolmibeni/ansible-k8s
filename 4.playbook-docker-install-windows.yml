@@ -1,0 +1,19 @@
+---
+- name: Install Docker in Windows Server 2019
+  hosts: all
+  become: true
+  vars_files:
+    - variables.yml
+
+  tasks:
+    name: Install Chocolatey at Windows Server 2019
+    win_chocolatey:
+      name: chocolatey
+      state: present
+      version: 0.10.15
+      source: STEP 3 URL
+    
+    name: Install Docker-ce at Windows Server 2019 using Microsoft Docker Provider
+    
+
+    
