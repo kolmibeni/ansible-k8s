@@ -6,7 +6,7 @@
 ansible_user=administrator 
 ansible_password=@ut0Lab95619
 
-# Worker nodes (Ubuntu 20.04)
+# Worker nodes (Windows Server 2019)
 [workers_win]
 192.168.119.181
 
