@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: control_plane
   become: true
   vars_files:
     - variables.yml
@@ -7,3 +7,12 @@
   tasks:
     - name: Test Connection
       ping:
+---
+- hosts: workers_win
+  become: true
+  vars_files:
+    - variables.yml
+
+  tasks:
+    - name: Test Connection
+      win_ping:
