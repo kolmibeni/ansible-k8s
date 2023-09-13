@@ -1,7 +1,7 @@
 # Control plane (Ubuntu 20.04)
 [control_plane]
-192.168.119.170 ansible_user=administrator ansible_password=@ut0Lab95619
+192.168.119.180 ansible_user=administrator ansible_password=@ut0Lab95619
 
 # Worker nodes (Ubuntu 20.04)
-# [workers]
-# 192.168.119.111
+[workers]
+192.168.119.181
