@@ -1,5 +1,6 @@
 ---
-- hosts: control_plane
+- name: Test connection for Ubuntu machines
+  hosts: control_plane
   become: true
   vars_files:
     - variables.yml
@@ -7,12 +8,12 @@
   tasks:
     - name: Test Connection
       ping:
----
-- hosts: workers_win
-  become: true
+
+- name: Test connection for Windows Server machines
+  hosts: workers_win
   vars_files:
     - variables.yml
 
-  tasks:
+  tasks:    
     - name: Test Connection
       win_ping:
