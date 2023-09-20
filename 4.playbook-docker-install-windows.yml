@@ -44,11 +44,11 @@
         delay: 10
         timeout: 600
     
-    - name: Enable Docker Service
-      win_service:
-        name: docker
-        start_mode: auto
-        state: started
+    # - name: Enable Docker Service
+    #   win_service:
+    #     name: docker
+    #     start_mode: auto
+    #     state: started
 
     - name: Check Docker version
       win_shell: docker version
