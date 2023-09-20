@@ -28,13 +28,13 @@
     #   shell: su - $USER
     
     - name: Mkdir .kube directory for user
-      shell: mkdir -p $HOME/.kube 
-      become_user: "{{ user }}"
+      shell: mkdir -p /home/{{ user }}/.kube 
+      become_user: {{ user }}
       
     - name: Copy Kubernetes config file for user
       copy: 
         src: /etc/kubernetes/admin.conf 
-        dest: $HOME/.kube/config
+        dest: /home/{{ user }}/.kube/config
         mode: '0644'        
         remote_src: true
       become: true
