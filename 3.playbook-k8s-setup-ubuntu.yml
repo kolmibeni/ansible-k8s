@@ -53,6 +53,14 @@
     
     - name: Chown Kubernetes config file for user
       shell: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    
+    - name: Fetch Kubernetes config file from control plane to Ansible controller
+      fetch:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/{{ user }}/.kube/config
+        flat: yes
+      become: true
+      become_user: root
 
     - name: Download Flannel v0.18.1 manifest file
       shell: wget https://raw.githubusercontent.com/coreos/flannel/v0.18.1/Documentation/kube-flannel.yml -O /home/{{ user }}/kube-flannel.yml
@@ -94,3 +102,27 @@
     - name: Output Kubernetes join command
       debug:
         msg: "{{ join_command.stdout_lines[0] }}"
+
+    - name: Create Kubernetes join token for Windows node
+      shell: kubeadm token create --print-join-command --ttl 0
+      register: join_command_windows
+
+    - name: Output Kubernetes join command for Windows node
+      debug:
+        msg: "{{ join_command_windows.stdout_lines[0] }}"
+    
+    - name: Save join command in a file
+      copy:
+        content: "{{ join_command_windows.stdout_lines[0] }}"
+        dest: /home/{{ user }}/join-command-windows.ps1
+        mode: '0644'
+      become: true
+      become_user: root
+
+    - name: Fetch join command from control plane to Ansible controller
+      fetch:
+        src: /home/{{ user }}/join-command-windows.ps1
+        dest: /home/{{ user }}/join-command-windows.ps1
+        flat: yes
+      become: true
+      become_user: root
