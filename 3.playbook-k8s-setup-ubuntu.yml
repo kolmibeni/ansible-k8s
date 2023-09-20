@@ -39,13 +39,13 @@
       shell: export KUBECONFIG=/etc/kubernetes/admin.conf
 
     - name: Mkdir .kube directory for user
-      shell: mkdir -p $HOME/.kube 
+      shell: mkdir -p /home/{{ user }}/.kube 
       become_user: "{{ user }}"
       
     - name: Copy Kubernetes config file for user
       copy: 
         src: /etc/kubernetes/admin.conf 
-        dest: $HOME/.kube/config
+        dest: /home/{{ user }}/.kube/config
         mode: '0644'        
         remote_src: true
       become: true
@@ -53,6 +53,7 @@
     
     - name: Chown Kubernetes config file for user
       shell: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+      become_user: "{{ user }}"
     
     - name: Fetch Kubernetes config file from control plane to Ansible controller
       fetch:
