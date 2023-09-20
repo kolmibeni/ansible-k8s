@@ -1,6 +1,6 @@
 ---
 - name: Setup Kubernetes Cluster
-  hosts: all
+  hosts: control_plane
   become: true
   vars_files:
     - variables.yml

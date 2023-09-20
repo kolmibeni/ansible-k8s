@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  become: true
+  become: control_plane
   vars_files:
     - variables.yml
 
