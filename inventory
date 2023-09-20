@@ -15,16 +15,3 @@ ansible_user=administrator
 ansible_password=@ut0Lab95619 
 ansible_connection=winrm
 ansible_winrm_server_cert_validation=ignore
-
-
-
-
-# Worker nodes BUT WITH SSH (Windows Server 2019)
-[workers_win_ssh]
-192.168.119.181
-
-[workers_win_ssh:vars]
-ansible_user=administrator 
-ansible_password=@ut0Lab95619 
-ansible_connection=ssh
-ansible_shell_type=powershell
