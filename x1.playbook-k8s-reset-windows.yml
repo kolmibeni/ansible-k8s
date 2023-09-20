@@ -8,6 +8,11 @@
     - name: Remove HNS network
       win_shell: Get-HnsNetwork | Remove-HnsNetwork
 
+    - name: Wait for the machine to reboot
+      wait_for_connection:
+        delay: 10
+        timeout: 600
+
     - name: Reset kubeadm
       win_shell: kubeadm reset -f
 
