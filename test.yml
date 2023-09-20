@@ -27,20 +27,18 @@
     # - name: Switch to user
     #   shell: su - $USER
     
-
-
-    - name: Use kubectl to check nodes
-      shell: kubectl get nodes
-      register: nodes
-
-    - name: Output nodes 
-      debug:
-        msg: "{{ nodes.stdout_lines }}"
-
-    - name: Use kubectl to check all system pods
-      shell: kubectl get pods -n kube-system
-      register: pods
-
-    - name: Output pods
-      debug:
-        msg: "{{ pods.stdout_lines }}"
+    - name: Mkdir .kube directory for user
+      shell: mkdir -p $HOME/.kube 
+      become_user: "{{ user }}"
+      
+    - name: Copy Kubernetes config file for user
+      copy: 
+        src: /etc/kubernetes/admin.conf 
+        dest: $HOME/.kube/config
+        mode: '0644'        
+        remote_src: true
+      become: true
+      become_user: root
+    
+    - name: Chown Kubernetes config file for user
+      shell: sudo chown $(id -u):$(id -g) $HOME/.kube/config
