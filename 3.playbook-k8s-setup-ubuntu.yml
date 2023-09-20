@@ -1,5 +1,5 @@
 ---
-- name: Setup Kubernetes Cluster
+- name: Setup Kubernetes Cluster control plane
   hosts: control_plane
   become: true
   vars_files:
