@@ -29,7 +29,7 @@
     
     - name: Mkdir .kube directory for user
       shell: mkdir -p /home/{{ user }}/.kube 
-      become_user: {{ user }}
+      become_user: "{{ user }}"
       
     - name: Copy Kubernetes config file for user
       copy: 
@@ -42,3 +42,4 @@
     
     - name: Chown Kubernetes config file for user
       shell: sudo chown $(id -u):$(id -g) $HOME/.kube/config
+      become_user: "{{ user }}"
