@@ -126,3 +126,19 @@
         flat: yes
       become: true
       become_user: root
+
+    - name: Use kubectl to check nodes
+      shell: kubectl get nodes
+      register: nodes
+
+    - name: Output nodes 
+      debug:
+        msg: "{{ nodes.stdout_lines }}"
+
+    - name: Use kubectl to check all system pods
+      shell: kubectl get pods -n kube-system
+      register: pods
+
+    - name: Output pods
+      debug:
+        msg: "{{ pods.stdout_lines }}"
