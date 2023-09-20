@@ -31,12 +31,8 @@
     - name: Run a powershell script to install Docker
       win_shell: .\install-docker-ce.ps1 -DockerVersion {{ docker_version_windows }}
 
-    - name: Restart computer
-      win_reboot:
-        reboot_timeout: 600
-        reboot_delay: 10
-        reboot_msg: "System will reboot in 10 seconds"
-        msg: "Reboot initiated by Ansible for Docker installation"
+    - name: Restart windows server
+      win_shell: Restart-Computer -Force
       when: ansible_reboot_pending | bool
     
     - name: Wait for the machine to reboot
