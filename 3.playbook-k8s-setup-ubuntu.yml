@@ -40,7 +40,7 @@
 
     - name: Mkdir .kube directory for user
       shell: mkdir -p $HOME/.kube 
-      become_user: {{ user }}
+      become_user: "{{ user }}"
       
     - name: Copy Kubernetes config file for user
       copy: 
