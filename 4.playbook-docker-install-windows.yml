@@ -29,7 +29,7 @@
       win_shell: Invoke-WebRequest -UseBasicParsing "https://raw.githubusercontent.com/microsoft/Windows-Containers/Main/helpful_tools/Install-DockerCE/install-docker-ce.ps1" -o install-docker-ce.ps1
     
     - name: Run a powershell script to install Docker
-      win_shell: .\install-docker-ce.ps1 -DockerVersion {{ docker_version_windows }}
+      win_shell: .\install-docker-ce.ps1 -DockerVersion "{{ docker_version_windows }}"
 
     - name: Restart windows server
       win_shell: Restart-Computer -Force
