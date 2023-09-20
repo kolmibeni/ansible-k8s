@@ -100,10 +100,12 @@
     - name: Use usermod to add user to docker group
       shell: sudo usermod -aG docker $USER
 
-    - name: Switch to user
-      shell: su ${USER}
-
     - name: Verify if Docker has been successfully installed  
       become: true
       command: docker run --rm hello-world
+      register: docker_hello_world
+
+    - name: Print Docker hello world output
+      debug:
+        var: docker_hello_world.stdout_lines
 
