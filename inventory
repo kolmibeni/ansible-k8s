@@ -18,6 +18,7 @@ ansible_winrm_server_cert_validation=ignore
 
 
 
+
 # Worker nodes BUT WITH SSH (Windows Server 2019)
 [workers_win_ssh]
 192.168.119.181
