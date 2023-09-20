@@ -82,4 +82,26 @@
     - name: Hold Kubernetes packages version
       command: apt-mark hold kubelet kubeadm kubectl
 
-      
+    - name: Check kubeadm version
+      command: kubeadm version
+      register: kubeadm_version
+    
+    - name: Print kubeadm version
+      debug:
+        msg: "{{ kubeadm_version.stdout }}"
+
+    - name: Check kubelet version
+      command: kubelet --version
+      register: kubelet_version
+
+    - name: Print kubelet version
+      debug:
+        msg: "{{ kubelet_version.stdout }}"
+    
+    - name: Check kubectl version
+      command: kubectl version --client
+      register: kubectl_version 
+    
+    - name: Print kubectl version
+      debug:
+        msg: "{{ kubectl_version.stdout }}"
