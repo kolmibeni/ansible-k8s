@@ -1,6 +1,6 @@
 ---
 - name: Setup Kubernetes Cluster
-  hosts: all
+  hosts: control_plane
   become: true
   vars_files:
     - variables.yml
@@ -21,8 +21,33 @@
     # - name: Chown Kubernetes config file
     #   shell: sudo chown $(id -u):$(id -g) $HOME/.kube/config
     
-    - name: Usermod Docker
-      shell: sudo usermod -aG docker $USER
+    # - name: Usermod Docker
+    #   shell: sudo usermod -aG docker $USER
 
-    - name: Switch to user
-      shell: su - $USER
+    # - name: Switch to user
+    #   shell: su - $USER
+    
+
+    - name: Create Kubernetes join token for Windows node
+      shell: kubeadm token create --print-join-command --ttl 0
+      register: join_command_windows
+
+    - name: Output Kubernetes join command for Windows node
+      debug:
+        msg: "{{ join_command_windows.stdout_lines[0] }}"
+    
+    - name: Save join command in a file
+      copy:
+        content: "{{ join_command_windows.stdout_lines[0] }}"
+        dest: /home/{{ user }}/join-command-windows.ps1
+        mode: '0644'
+      become: true
+      become_user: root
+
+    - name: Fetch join command
+      fetch:
+        src: /home/{{ user }}/join-command-windows.ps1
+        dest: /home/{{ user }}/join-command-windows.ps1
+        flat: yes
+      become: true
+      become_user: root
