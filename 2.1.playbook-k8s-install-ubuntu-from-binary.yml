@@ -73,6 +73,10 @@
         mode: 0755
         remote_src: true
 
+    - name: Create directory for kubelet service in /etc/systemd/system/kubelet.service.d
+      shell: mkdir -p /etc/systemd/system/kubelet.service.d
+      become: true
+
     - name: Create kubeadm config file in /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
       file:
         path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
