@@ -78,6 +78,7 @@
         path: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
         state: touch
         mode: 0755
+      become: true
     
     - name: Fill the content of 10-kubeadm.conf file with kubeadm config
       copy:
@@ -93,12 +94,14 @@
           ExecStart=
           ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
         dest: /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+      become: true
 
     - name: Create kubelet service file in /usr/lib/systemd/system/kubelet.service
       file:
         path: /usr/lib/systemd/system/kubelet.service
         state: touch
         mode: 0755
+      become: true
 
     - name: Fill the content of kubelet.service file with kubelet service config
       copy:
@@ -118,10 +121,12 @@
           [Install]
           WantedBy=multi-user.target
         dest: /usr/lib/systemd/system/kubelet.service
+      become: true
 
     - name: Reload systemd daemon
       systemd:
         daemon_reload: yes
+      become: true
 
     - name: Start and enable kubelet.service on boot
       service:
