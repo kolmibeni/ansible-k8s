@@ -4,7 +4,16 @@
   vars_files:
     - variables.yml
 
-  tasks:    
+  tasks:      
+    - name: Download Kubernetes pause image for Windows
+      win_shell: docker pull mcr.microsoft.com/oss/kubernetes/pause:1.4.1
+
+    - name: Download Flannel windows image
+      win_shell: docker pull sigwindowstools/flannel:v0.13.0-nanoserver
+
+    - name: Download Kube proxy windows image 
+      win_shell: docker pull sigwindowstools/kube-proxy:v1.21.14-nanoserver
+
     - name: Disable firewall
       win_shell: Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
 
@@ -65,3 +74,15 @@
     - name: Print K8s join output
       debug:
         msg: "{{ k8s_join_output.stdout_lines }}"
+
+    - name: Wait for the join process to finish before proceeding
+      wait_for:
+        timeout: 30
+
+    - name: Check K8s node status after join
+      win_shell: kubectl get nodes
+      register: k8s_node_status
+    
+    - name: Print K8s node status after join
+      debug:
+        msg: "{{ k8s_node_status.stdout_lines }}"
