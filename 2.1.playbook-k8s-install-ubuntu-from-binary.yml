@@ -68,7 +68,7 @@
 
     - name: Copy Kubernetes binaries to /usr/bin directory
       copy:
-        src: /tmp/kubernetes/server/bin/*
+        src: /tmp/kubernetes/server/bin/
         dest: /usr/bin
         mode: 0755
         remote_src: true
