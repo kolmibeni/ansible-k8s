@@ -64,6 +64,7 @@
       unarchive:
         src: /tmp/kubernetes-server-linux-amd64.tar.gz
         dest: /tmp
+        remote_src: yes
 
     - name: Copy Kubernetes binaries to /usr/bin directory
       copy:
@@ -138,6 +139,7 @@
       unarchive:
         src: /tmp/cni-plugins-linux-amd64-v1.0.0.tgz
         dest: /opt/cni/bin
+        remote_src: yes
 # ========================================
 
     - name: Hold Kubernetes packages version
