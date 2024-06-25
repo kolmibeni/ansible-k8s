@@ -6,6 +6,16 @@
     - variables.yml
 
   tasks:
+    - name: Install socat package for Ubuntu
+      apt:
+        name: socat
+        state: present
+
+    - name: Install conntrack package for Ubuntu 
+      apt:
+        name: conntrack
+        state: present
+
     - name: Disable swap
       command: swapoff -a
     
