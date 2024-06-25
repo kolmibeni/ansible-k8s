@@ -152,9 +152,6 @@
         remote_src: true
 # ========================================
 
-    - name: Hold Kubernetes packages version
-      command: apt-mark hold kubelet kubeadm kubectl
-
     - name: Check kubeadm version
       command: kubeadm version
       register: kubeadm_version
