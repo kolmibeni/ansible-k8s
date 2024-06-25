@@ -64,13 +64,14 @@
       unarchive:
         src: /tmp/kubernetes-server-linux-amd64.tar.gz
         dest: /tmp
-        remote_src: yes
+        remote_src: true
 
     - name: Copy Kubernetes binaries to /usr/bin directory
       copy:
         src: /tmp/kubernetes/server/bin/*
         dest: /usr/bin
         mode: 0755
+        remote_src: true
 
     - name: Create kubeadm config file in /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
       file:
@@ -139,7 +140,7 @@
       unarchive:
         src: /tmp/cni-plugins-linux-amd64-v1.0.0.tgz
         dest: /opt/cni/bin
-        remote_src: yes
+        remote_src: true
 # ========================================
 
     - name: Hold Kubernetes packages version
