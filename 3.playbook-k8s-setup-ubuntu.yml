@@ -27,10 +27,15 @@
     
     - name: Initialize Kubernetes Cluster
       shell: kubeadm init --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12
+      register: kubeadm_init_output
 
     - name: Wait until kubeadm init is finished
       wait_for:
         timeout: 30
+    
+    - name: Output kubeadm init output
+      debug:
+        msg: "{{ kubeadm_init_output.stdout_lines }}"
 
     - name : Copy Kubernetes config file as root
       shell: mkdir -p $HOME/.kube && sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && sudo chown $(id -u):$(id -g) $HOME/.kube/config
